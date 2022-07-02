@@ -1,9 +1,14 @@
 "use strict";
-const numberOfFilms = prompt("քանի ֆիլմ էք դիտել այսօր", "")
+let numberOfFilms;
 
-  if(numberOfFilms == null || numberOfFilms === 0 || numberOfFilms < 0 || numberOfFilms === ""    ){
-console.log("գրել միայն թվեր")
-  }
+function start () {
+	numberOfFilms = parseInt(prompt("Քանի՞ ֆիլմ եք դիտել այսօր", ""));
+	while (numberOfFilms == "" || numberOfFilms == null || isNaN(numberOfFilms) || numberOfFilms < -1) {
+		numberOfFilms = parseInt(prompt("Քանի՞ ֆիլմ եք դիտել այսօր", ""));
+	}
+}
+start ();
+
 
  const personalMovieDB ={
     count:numberOfFilms,
@@ -13,14 +18,15 @@ console.log("գրել միայն թվեր")
     privat: true,
     
  }
-   function rememberMyFilms(){
+   
+ 
+ function rememberMyFilms(){
     for (let i = 0; i < 1; i++){
     const a = prompt("որ ֆիլմ էք վերջերս դիտել","")
     const b = prompt("ինչքան կգնահատեիք այդ ֆիլմը ","")
     
-    if(a != null && b != null && a != "" && b != "" && a.length < 30){
-         
-        
+    if(!isNaN(b) && isNaN(a) && a.trim() != "" && b.trim() != "" && a != null && b != null && a != "" && b != "" && a.length < 30 && typeof(a) !=="number"){
+     
         personalMovieDB.movies[a] = b;
         console.log('done');
         
@@ -50,14 +56,17 @@ function detectPersonalLevel(){
 detectPersonalLevel();  
 
 function writeYourGenres(){
-    for(let i = 1; i <= 1; i++){
+    for(let i = 1; i <= 2; i++){
         const geners = prompt(`ձեր սիրած Ժանրը${i}`);
-        personalMovieDB.geners[i - 1] = geners;
-    
+        if (geners != null && geners.trim() != "" && geners.length <= 20 && isNaN(geners)) {
+			personalMovieDB.geners[i-1] = geners
+		} else {
+			i--;
+		}
     }
-    }
+};
 
-    writeYourGenres()
+writeYourGenres()
 
     function showMyDB (){
         if(personalMovieDB.privat === true){
@@ -65,7 +74,9 @@ function writeYourGenres(){
         }else{
             console.log("Մեր տվյալների բազան փակ է")
         }
+        
     }
     showMyDB ()
     
-  console.log(personalMovieDB )
+  console.log(personalMovieDB.privat );
+  

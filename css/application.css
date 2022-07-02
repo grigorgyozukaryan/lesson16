@@ -18,7 +18,7 @@ body{
 .bubbles{
    position: relative;
    display: flex;
-}
+} 
 .bubbles span{
    position: relative;
    width: 30px;
